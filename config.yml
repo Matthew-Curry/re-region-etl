@@ -1,0 +1,6 @@
+census:
+  attempts: 3
+localTax:
+  threshold: 60
+general:
+  nullString: "NONE"
