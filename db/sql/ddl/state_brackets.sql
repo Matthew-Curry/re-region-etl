@@ -6,9 +6,9 @@ CREATE TABLE state_brackets (
         ON DELETE CASCADE,
     
     state_id SMALLINT NOT NULL,
-    single_rate DECIMAL ( 4 ),
+    single_rate DECIMAL,
     single_bracket INTEGER,
-    married_rate DECIMAL ( 4 ),
+    married_rate DECIMAL,
     married_bracket INTEGER,
     CONSTRAINT ux_state_brackets UNIQUE (state_id, single_bracket, married_bracket)
 );

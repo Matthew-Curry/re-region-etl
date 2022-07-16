@@ -10,16 +10,16 @@ CREATE TABLE tax_jurisdiction (
     county_id INTEGER NOT NULL,
     -- resident fields
     resident_desc VARCHAR( 50 ) NOT NULL,
-    resident_rate DECIMAL ( 4 ),
-    resident_month_fee  DECIMAL ( 4 ),
-    resident_year_fee  DECIMAL ( 4 ),
-    resident_pay_period_fee  DECIMAL ( 4 ),
-    resident_state_rate DECIMAL ( 4 ),
+    resident_rate DECIMAL,
+    resident_month_fee  DECIMAL,
+    resident_year_fee  DECIMAL,
+    resident_pay_period_fee  DECIMAL,
+    resident_state_rate DECIMAL,
     -- non-resident fields
     nonresident_desc VARCHAR( 50 ) NOT NULL,
-    nonresident_rate DECIMAL ( 4 ),
-    nonresident_month_fee  DECIMAL ( 4 ),
-    nonresident_year_fee  DECIMAL ( 4 ),
-    nonresident_pay_period_fee  DECIMAL ( 4 ),
-    nonresident_state_rate DECIMAL ( 4 )
+    nonresident_rate DECIMAL,
+    nonresident_month_fee  DECIMAL,
+    nonresident_year_fee  DECIMAL,
+    nonresident_pay_period_fee  DECIMAL,
+    nonresident_state_rate DECIMAL
 );

@@ -13,7 +13,7 @@ import (
 	"strconv"
 	"strings"
 
-	_ "github.com/lib/pq"
+	_"github.com/lib/pq"
 
 	"github.com/Matthew-Curry/re-region-etl/logging"
 )
@@ -251,6 +251,20 @@ func (d *DbEngine) NewNullString(s string) sql.NullString {
 	}
 	return sql.NullString{
 		String: s,
+		Valid:  true,
+	}
+}
+
+// helper method to convert empty strings + null strings to nulls
+func (d *DbEngine) NewNullFloat(s string) sql.NullFloat64 {
+	if len(s) == 0 {
+		return sql.NullFloat64{}
+	} 
+	
+	f, _ := strconv.ParseFloat(s, 10)
+
+	return sql.NullFloat64{
+		Float64: f,
 		Valid:  true,
 	}
 }

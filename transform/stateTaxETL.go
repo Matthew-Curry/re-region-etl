@@ -5,6 +5,7 @@ package transform
 import (
 	"regexp"
 	"strings"
+	"strconv"
 
 	"github.com/Matthew-Curry/re-region-etl/sourceFileUtils"
 )
@@ -50,11 +51,11 @@ func GetStateTaxData(censusData [][]string, nullString string) ([][]string, [][]
 					processExemption(row[11], nullString)})
 			}
 		}
-
+		
 		// rows of length 12 also contain the first bracket information, and rows of length 8 are successive bracket information
 		if (len(row) == 12 || len(row) == 7) && stateId != nullString {
 			stateRates = append(stateRates, []string{stateId,
-				processExemption(row[1], nullString),
+				processRate(row[1], nullString),
 				processExemption(row[3], nullString),
 				processExemption(row[4], nullString),
 				processExemption(row[6], nullString)})
@@ -69,6 +70,7 @@ func GetStateTaxData(censusData [][]string, nullString string) ([][]string, [][]
 
 // helper method with logic to process an exemption
 func processExemption(ex, nullString string) string {
+	// get rid of everything not a number
 	reg, _ := regexp.Compile("[^0-9]+")
 	rep := reg.ReplaceAllString(ex, "")
 
@@ -76,5 +78,23 @@ func processExemption(ex, nullString string) string {
 		return nullString
 	} else {
 		return rep
+	}
+}
+
+// process a tax rate
+func processRate(r, nullString string) string {
+	// trim spaces
+	r = strings.TrimSpace(r)
+	// trim %
+	r = strings.Trim(r, "%")
+	// If non number, return null string
+	_, err := strconv.ParseFloat(r, 64)
+    if err != nil{
+		return nullString
+	// if r is empty return null
+	} else if r == "" {
+		return nullString
+	} else {
+		return r
 	}
 }

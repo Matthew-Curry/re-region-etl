@@ -7,6 +7,9 @@ import (
 	"os"
 	"errors"
 	"io"
+	"runtime"
+	"strings"
+	"fmt"
 )
 
 type Logger struct {
@@ -16,15 +19,25 @@ type Logger struct {
 }
 
 func (l *Logger) Info(s string, a ...interface{}) {
+	s = l.addCaller(s)
 	l.infoLogger.Printf(s, a...)
 }
 
 func (l *Logger) Warn(s string, a ...interface{}) {
+	s = l.addCaller(s)
 	l.warnLogger.Printf(s, a...)
 }
 
 func (l *Logger) Error(s string, a ...interface{}) {
+	s = l.addCaller(s)
 	l.errorLogger.Panicf(s, a...)
+}
+
+func (l *Logger) addCaller(s string) string{
+	_, file, line, _ := runtime.Caller(2)
+	fileParts := strings.Split(file, "/")
+	source := fileParts[len(fileParts)-1]
+	return source + " " + fmt.Sprint(line) + " " + s
 }
 
 // Public method to instantiate base loggers, return aggregated logger object
