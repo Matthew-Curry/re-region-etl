@@ -10,9 +10,9 @@ import (
 
 	"gopkg.in/yaml.v3"
 
-	"github.com/Matthew-Curry/re-region-etl/db"
+	"github.com/Matthew-Curry/re-region-etl/load"
+	"github.com/Matthew-Curry/re-region-etl/extract"
 	"github.com/Matthew-Curry/re-region-etl/logging"
-	"github.com/Matthew-Curry/re-region-etl/transform"
 )
 
 // logger for the app
@@ -42,7 +42,7 @@ func main() {
 	}
 
 	// the db engine to run SQL queries
-	engine, err := db.NewDbEngine(nullString.(string))
+	engine, err := load.NewDbEngine(nullString.(string))
 	if err != nil {
 		logger.Error("Unable to create the db engine. Recieved error: %s", err)
 	}
@@ -62,7 +62,7 @@ func main() {
 
 }
 
-func runETL(c bool, stages []string, censusAttempts int, matchThresh int, nullString string, engine *db.DbEngine) {
+func runETL(c bool, stages []string, censusAttempts int, matchThresh int, nullString string, engine *load.DbEngine) {
 	// initialized in memory data structures to load to tables
 	var censusData [][]string
 	var localTaxData [][]string
@@ -79,7 +79,7 @@ func runETL(c bool, stages []string, censusAttempts int, matchThresh int, nullSt
 	if contains(stages, "1") {
 		logger.Info("RUNNING STAGE 1, LOAD TO FEDERAL TABLES")
 		// retrieve 2d array of federal tax data
-		federalBrackets, federalDeductions, err = transform.GetFederalTaxData()
+		federalBrackets, federalDeductions, err = extract.GetFederalTaxData()
 
 		if err != nil {
 			logger.Error(getDataErrorStr("federal", err))
@@ -102,13 +102,13 @@ func runETL(c bool, stages []string, censusAttempts int, matchThresh int, nullSt
 	if contains(stages, "2") || contains(stages, "3") || contains(stages, "4") {
 		logger.Info("RUNNING STAGE 2, LOAD TO STATE TABLE")
 		// get census data at the county level as 2D array
-		censusData, err = transform.GetCensusData(censusAttempts)
+		censusData, err = extract.GetCensusData(censusAttempts)
 		if err != nil {
 			logger.Error(getDataErrorStr("census", err))
 		}
 
 		// get the state data as a 2d array
-		stateBrackets, stateExemptions, err = transform.GetStateTaxData(censusData, nullString)
+		stateBrackets, stateExemptions, err = extract.GetStateTaxData(censusData, nullString)
 
 		// use the state data to load the state tables in order of dependencies
 		err = engine.LoadStateTable(stateExemptions, c)
@@ -136,7 +136,7 @@ func runETL(c bool, stages []string, censusAttempts int, matchThresh int, nullSt
 	if contains(stages, "4") {
 		logger.Info("RUNNING STAGE 4, LOAD TO LOCAL TAX JURISDICTION TABLE")
 		// retrieve 2d array of state tax data
-		localTaxData, err = transform.GetLocalTaxData(censusData, matchThresh, nullString)
+		localTaxData, err = extract.GetLocalTaxData(censusData, matchThresh, nullString)
 
 		if err != nil {
 			logger.Error(getDataErrorStr("local tax", err))
