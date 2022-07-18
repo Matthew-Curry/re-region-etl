@@ -44,11 +44,11 @@ func GetStateTaxData(censusData [][]string, nullString string) ([][]string, [][]
 
 				stateId = newStateId
 				stateExcemptions = append(stateExcemptions, []string{stateId, strings.TrimSpace(row[0]),
-					processExemption(row[7], nullString),
-					processExemption(row[8], nullString),
-					processExemption(row[9], nullString),
-					processExemption(row[10], nullString),
-					processExemption(row[11], nullString)})
+					processDollarValue(row[7], nullString),
+					processDollarValue(row[8], nullString),
+					processDollarValue(row[9], nullString),
+					processDollarValue(row[10], nullString),
+					processDollarValue(row[11], nullString)})
 			}
 		}
 
@@ -56,9 +56,9 @@ func GetStateTaxData(censusData [][]string, nullString string) ([][]string, [][]
 		if (len(row) == 12 || len(row) == 7) && stateId != nullString {
 			stateRates = append(stateRates, []string{stateId,
 				processRate(row[1], nullString),
-				processExemption(row[3], nullString),
-				processExemption(row[4], nullString),
-				processExemption(row[6], nullString)})
+				processDollarValue(row[3], nullString),
+				processRate(row[4], nullString),
+				processDollarValue(row[6], nullString)})
 
 		}
 
@@ -69,7 +69,7 @@ func GetStateTaxData(censusData [][]string, nullString string) ([][]string, [][]
 }
 
 // helper method with logic to process an exemption
-func processExemption(ex, nullString string) string {
+func processDollarValue(ex, nullString string) string {
 	// get rid of everything not a number
 	reg, _ := regexp.Compile("[^0-9]+")
 	rep := reg.ReplaceAllString(ex, "")

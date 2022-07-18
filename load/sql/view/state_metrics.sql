@@ -24,4 +24,6 @@ CREATE VIEW state_metrics AS
         average_median_income,
         average_rent, 
         commute
-    FROM states INNER JOIN agg_metrics ON states.state_id = agg_metrics.state_id;
+    FROM states INNER JOIN agg_metrics ON states.state_id = agg_metrics.state_id
+    -- no null record
+    WHERE states.state_id != 32767;
