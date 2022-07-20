@@ -1,5 +1,5 @@
 -- assume ids and names are static
-ON CONFLICT (tax_jurisdiction_id) DO UPDATE SET
+ON CONFLICT (tax_locale_id) DO UPDATE SET
     resident_desc = EXCLUDED.resident_desc,
     resident_rate = EXCLUDED.resident_rate,
     resident_month_fee = EXCLUDED.resident_month_fee,

@@ -1,6 +1,6 @@
-CREATE TABLE tax_jurisdiction (
-    tax_jurisdiction_id INTEGER PRIMARY KEY,
-    tax_jurisdiction VARCHAR( 50 ) NOT NULL,
+CREATE TABLE tax_locale (
+    tax_locale_id INTEGER PRIMARY KEY,
+    tax_locale VARCHAR( 50 ) NOT NULL,
     -- the county id is a foriegn key for the tax jurisdiction table
     CONSTRAINT fk_county
         FOREIGN KEY(county_id) 

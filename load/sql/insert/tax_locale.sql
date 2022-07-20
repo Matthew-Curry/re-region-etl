@@ -1,6 +1,6 @@
-INSERT INTO tax_jurisdiction(
-    tax_jurisdiction_id,
-    tax_jurisdiction, 
+INSERT INTO tax_locale(
+    tax_locale_id,
+    tax_locale, 
     county_id,
     resident_desc,
     resident_rate,

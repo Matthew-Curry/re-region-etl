@@ -32,14 +32,14 @@ const (
 	FEDERAL_BRACKETS   string = "federal_brackets"
 	STATE_BRACKETS     string = "state_brackets"
 	STATE              string = "states"
-	TAX_JURISDICTION   string = "tax_jurisdiction"
+	TAX_JURISDICTION   string = "tax_locale"
 	// common sql file names
 	COUNTY_SQL            string = "county.sql"
 	FEDERAL_DEDUCTION_SQL string = "federal_deductions.sql"
 	FEDERAL_BRACKETS_SQL  string = "federal_brackets.sql"
 	STATE_BRACKETS_SQL    string = "state_brackets.sql"
 	STATE_SQL             string = "state.sql"
-	TAX_JURISDICION_SQL   string = "tax_jurisdictions.sql"
+	TAX_JURISDICION_SQL   string = "tax_locale.sql"
 	// directories holding each type of SQL
 	DDL_DIR    string = "ddl"
 	INSERT_DIR string = "insert"
