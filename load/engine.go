@@ -7,7 +7,6 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
-	"os"
 	"path"
 	"runtime"
 	"strconv"
@@ -22,10 +21,6 @@ var logger, _ = logging.GetLogger("file.log")
 
 // string constants
 const (
-	// constants defining name of environment vars storing DB info
-	RE_REGION_ETL_USER     string = "RE_REGION_ETL_USER"
-	RE_REGION_ETL_PASSWORD string = "RE_REGION_ETL_PASSWORD"
-	RE_REGION_DB           string = "RE_REGION_DB"
 	// table names
 	COUNTY             string = "county"
 	FEDERAL_DEDUCTIONS string = "federal_deductions"
@@ -45,9 +40,6 @@ const (
 	INSERT_DIR string = "insert"
 	UPDATE_DIR string = "update"
 	VIEW_DIR   string = "view"
-	// DB engine constants
-	host string = "localhost"
-	port int    = 5432
 	// ids of null county and state records
 	countyNullId string = "32767"
 	stateNullId  string = "32767"
@@ -64,7 +56,7 @@ type DbEngine struct {
 	nullString string
 }
 
-func NewDbEngine(nullString string) (*DbEngine, error) {
+func NewDbEngine(nullString, dbUser, dbPassword, dbName, dbHost, dbPort string) (*DbEngine, error) {
 	// define the DDL map
 	sqlMap := map[string]string{
 		COUNTY:             COUNTY_SQL,
@@ -86,14 +78,9 @@ func NewDbEngine(nullString string) (*DbEngine, error) {
 		TAX_JURISDICTION: COUNTY,
 	}
 
-	// read in creds + database from environment
-	user := os.Getenv(RE_REGION_ETL_USER)
-	password := os.Getenv(RE_REGION_ETL_PASSWORD)
-	dbname := os.Getenv(RE_REGION_DB)
-	// use these and constants for the connection string
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
+	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s "+
 		"password=%s dbname=%s sslmode=disable",
-		host, port, user, password, dbname)
+		dbHost, dbPort, dbUser, dbPassword, dbName)
 
 	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {

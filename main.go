@@ -30,6 +30,12 @@ func main() {
 	censusAttempts := configData["census"]["attempts"]
 	matchThresh := configData["localTax"]["threshold"]
 	nullString := configData["general"]["nullString"]
+	// get the DB params from env vars
+	dbUser := os.Getenv("RE_REGION_ETL_USER")
+	dbPassword := os.Getenv("RE_REGION_ETL_PASSWORD")
+	dbName := os.Getenv("RE_REGION_DB")
+	dbHost := os.Getenv("DB_HOST")
+	dbPort := os.Getenv("DB_PORT")
 	// CLI interface of app
 	c := flag.Bool("c", false, "c, Clears existing tables resulting from the ETL stages to run. Will only take effect if l option is provided to trigger the ETL")
 	l := flag.Bool("l", false, "l, Runs the ETL code to load the tables")
@@ -42,7 +48,7 @@ func main() {
 	}
 
 	// the db engine to run SQL queries
-	engine, err := load.NewDbEngine(nullString.(string))
+	engine, err := load.NewDbEngine(nullString.(string), dbUser, dbPassword, dbName, dbHost, dbPort)
 	if err != nil {
 		logger.Error("Unable to create the db engine. Recieved error: %s", err)
 	}

@@ -50,7 +50,7 @@ func GetLogger(logPath string) (Logger, *os.File) {
 	}
 	mw := io.MultiWriter(os.Stdout, file) 
 	// common logging flags
-	flags := log.LstdFlags | log.Lshortfile
+	flags := log.LstdFlags
 	infoLogger := log.New(mw, "INFO ", flags)
 	warnLogger := log.New(mw, "WARN ", flags)
 	errorLogger := log.New(mw, "ERROR ", flags)
