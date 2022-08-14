@@ -18,6 +18,15 @@ Output:
  ```
 Pass in the flags to run the ETL as needed.
 
+## Project Structure
+data: Holds source excel files from the Tax Foundation <br>
+extract: Holds extractors that take data from sources, transform and load to in memory structures. Those sources are the afformentioned data files as well as the Census Bureau Data API.
+load: Holds database engine with functionality to create tables, insert data, and define views on the re-region database. Also holds "sql" folder with all DDL, insert, update and create view statements.
+logging: Package holds my implementation of an aggregated with public methods for different log levels that is used throughout the app
+sourceFileUtils: Package holds method used to read in the source excel files.
+main.go: Defines the CLI interface. Holds a core "runETL" method that will process the ETL as per the provided args and stages.
+
+
 
 ## Source Data
 Taxation information is sourced to the app's database from datasets published by the Tax Foundation. This application is in no way affiliated or endorsed by the Tax Foundation. This data has been transformed and cleaned for storage in the database so it does not match the orginial form. For instance, the linkage of counties to local tax jurisdictions is performed by this application and is not a part of the Tax Foundation's orginial datasets. Also, the application performs the taxation estimates based on this data.
