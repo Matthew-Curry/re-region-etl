@@ -1,5 +1,5 @@
 # re-region-etl
-Dockerized ETL CLI tool to load source data for re-region-api (https://github.com/Matthew-Curry/re-region-api) into a Postgres DB from Census Bureau Data API and excel files produced by the Tax Foundation.
+Dockerized ETL CLI tool to load source data for re-region-api (https://github.com/Matthew-Curry/re-region-api) into a Postgres DB from the Census Bureau Data API and excel files produced by the Tax Foundation.
 
 ## Usage
 First, build the docker container with the database parameters passed in as environment variables:
