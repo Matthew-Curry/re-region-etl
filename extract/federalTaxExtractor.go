@@ -1,4 +1,4 @@
-/* Logic to extract and extract federal tax data into an in memory data structure for use in ETL */
+/* Logic to extract and store federal tax data into an in memory data structure for use in ETL */
 
 package extract
 

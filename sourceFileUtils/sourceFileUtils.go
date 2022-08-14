@@ -1,4 +1,4 @@
-/* Holds utility functions for retrieving files from S3 */
+/* Holds utility function for reading in data from excel files */
 
 package sourcefileutils
 

@@ -1,4 +1,4 @@
-/* Logic to extract and extract state tax data into an in memory data structure for use in ETL */
+/* Logic to extract and store state tax data into an in memory data structure for use in ETL */
 
 package extract
 
