@@ -7,8 +7,10 @@ First, build the docker container with the database parameters passed in as envi
 ```docker build -t re-region-etl:latest --build-arg RE_REGION_ETL_USER='{USER}' --build-arg RE_REGION_ETL_PASSWORD='{PASSWORD}' --build-arg RE_REGION_DB='{DB_NAME}' --build-arg DB_PORT='{DB_PORT}' --build-arg DB_HOST='{DB_HOST}' .```
 
 Running the container will output the options to the CLI:
-```docker run re-region-etl:latest```
+```docker run re-region-etl:latest``` 
+
 Output:
+
 ```Usage of ./re-region-etl:
   -c    c, Clears existing tables resulting from the ETL stages to run. Will only take effect if l option is provided to trigger the ETL
   -l    l, Runs the ETL code to load the tables
