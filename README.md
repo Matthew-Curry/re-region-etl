@@ -14,7 +14,7 @@ Output:
 ```Usage of ./re-region-etl:
   -c    c, Clears existing tables resulting from the ETL stages to run. Will only take effect if l option is provided to trigger the ETL
   -l    l, Runs the ETL code to load the tables
-  -v    v, Runs SQL to define the views. ```
+  -v    v, Runs SQL to define the views.
  
 Pass in the flags to run the ETL as needed.
 
