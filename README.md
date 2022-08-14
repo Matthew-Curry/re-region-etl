@@ -19,12 +19,12 @@ Output:
 Pass in the flags to run the ETL as needed.
 
 ## Project Structure
-data: Holds source excel files from the Tax Foundation <br>
-extract: Holds extractors that take data from sources, transform and load to in memory structures. Those sources are the afformentioned data files as well as the Census Bureau Data API. <br>
-load: Holds database engine with functionality to create tables, insert data, and define views on the re-region database. Also holds "sql" folder with all DDL, insert, update and create view statements. <br>
-logging: Package holds my implementation of an aggregated with public methods for different log levels that is used throughout the app <br>
-sourceFileUtils: Package holds method used to read in the source excel files. <br>
-main.go: Defines the CLI interface. Holds a core "runETL" method that will process the ETL as per the provided args and stages.
+**data:** Holds source excel files from the Tax Foundation <br>
+**extract:** Holds extractors that take data from sources, transform and load to in memory structures. Those sources are the afformentioned data files as well as the Census Bureau Data API. <br>
+**load:** Holds database engine with functionality to create tables, insert data, and define views on the re-region database. Also holds "sql" folder with all DDL, insert, update and create view statements. <br>
+**logging:** Package holds my implementation of an aggregated with public methods for different log levels that is used throughout the app <br>
+**sourceFileUtils:** Package holds method used to read in the source excel files. <br>
+**main.go:** Defines the CLI interface. Holds a core "runETL" method that will process the ETL as per the provided args and stages.
 
 
 
